@@ -1,0 +1,4 @@
+parameters:
+    #StreamingEndpointArn
+    streaming_endpoint_arn: "%env(STREAMING_ENDPOINT_ARN)%"
+    connect_instance_id: "%env(CONNECT_INSTANCE_ID)%"

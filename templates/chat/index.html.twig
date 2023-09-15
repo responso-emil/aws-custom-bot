@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat with {{ chat.username }}{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <h2 class="card-header text-center">Chat with {{ chat.username }}</h2>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a class="btn btn-primary" href="{{ path('app_send_message', {'id': chat.id}) }}">Send "Hello world!" chat message</a>
+                </li>
+                {% for chatMessage in chat.chatMessages %}
+                    <li class="list-group-item">{{ include('chat/partial/_notification.html.twig') }}</li>
+                {% else %}
+                    <h2>No messages yet</h2>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

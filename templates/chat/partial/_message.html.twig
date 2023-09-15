@@ -1,0 +1,5 @@
+{% set keys = ['Content', 'AbsoluteTime', 'ContentType', 'ParticipantRole', 'DisplayName'] %}
+
+{% for key, value in message|filter((v, k) => k in keys) %}
+    <p class="mb-0"><strong>{{ key }}:</strong> {{ value }}</p>
+{% endfor %}

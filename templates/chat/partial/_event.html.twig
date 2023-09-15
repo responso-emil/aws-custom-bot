@@ -1,0 +1,5 @@
+{% set keys = ['ContentType', 'AbsoluteTime', 'DisplayName', 'ParticipantRole'] %}
+
+{% for key, value in event|filter((v, k) => k in keys) %}
+    <p class="mb-0"><strong>{{ key }}:</strong> {{ value }}</p>
+{% endfor %}

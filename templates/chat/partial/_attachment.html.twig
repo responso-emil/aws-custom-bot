@@ -1,0 +1,20 @@
+{% set keys = ['AbsoluteTime', 'ParticipantRole', 'DisplayName'] %}
+
+{% for key, value in attachment|filter((v, k) => k in keys) %}
+    <p class="mb-0"><strong>{{ key }}:</strong> {{ value }}</p>
+{% endfor %}
+
+<p class="mb-0"><strong>Attachments:</strong></p>
+
+{% for attachment in attachment.Attachments %}
+    <div class="row mx-2">
+        <div class="col-12">
+            {% for key, value in attachment %}
+                <p class="mb-0"><strong>{{ key }}:</strong> {{ value }}</p>
+            {% endfor %}
+            <p class="mb-0"><strong>Action:</strong> <a href="{{ path('app_download_attachment', {'id': chat.id, 'attachmentId': attachment.AttachmentId}) }}">Download</a> </p>
+        </div>
+    </div>
+{% endfor %}
+
+

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <h2 class="card-header text-center">Chats:</h2>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                {% for chat in chats|reverse %}
+                    <li class="list-group-item">
+                        <span class="h4">{{ loop.index }}.</span>
+                        <a class="h5 text-decoration-none" href="{{ path('app_chat', {'id': chat.id}) }}">
+                            Chat with {{ chat.username }}
+                        </a>
+                    </li>
+                {% else %}
+                    <h2>No chats found</h2>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% set data = chatMessage.data.Message %}
+
+
+{% with data %}
+    {% if data.Type == 'MESSAGE' %}
+        {{ include('chat/partial/_message.html.twig', { 'message': data }) }}
+    {% elseif data.Type == 'ATTACHMENT' %}
+        {{ include('chat/partial/_attachment.html.twig', { 'attachment': data }) }}
+    {% else %}
+        {{ include('chat/partial/_event.html.twig', { 'event': data }) }}
+    {% endif %}
+{% endwith %}
+
+<details>
+    <summary>JSON</summary>
+    <pre>{{ chatMessage.json }}</pre>
+</details>
