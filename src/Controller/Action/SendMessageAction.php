@@ -17,6 +17,7 @@ final class SendMessageAction extends AbstractController
     {
         $client = new ConnectParticipantClient([
             'version' => 'latest',
+            'region' => 'us-east-1',
         ]);
 
         $client->sendMessage([

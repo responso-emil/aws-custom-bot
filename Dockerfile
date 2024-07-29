@@ -20,11 +20,11 @@ WORKDIR /srv/app
 # persistent / runtime deps
 # hadolint ignore=DL3018
 RUN apk add --no-cache \
-		acl=2.3.1-r3 \
-		fcgi=2.4.2-r4 \
-		file=5.45-r0 \
-		gettext=0.21.1-r7 \
-		git=2.40.1-r0 \
+		acl \
+		fcgi \
+		file \
+		gettext \
+		git \
 	;
 
 # php extensions installer: https://github.com/mlocati/docker-php-extension-installer

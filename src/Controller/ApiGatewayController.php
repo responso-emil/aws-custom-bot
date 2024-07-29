@@ -16,6 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ApiGatewayController extends AbstractController
 {
+    private string $streamingEndpointArn;
+
+    private string $connectInstanceId;
+
+    public function __construct(string $streamingEndpointArn, string $connectInstanceId)
+    {
+        $this->streamingEndpointArn = $streamingEndpointArn;
+        $this->connectInstanceId = $connectInstanceId;
+    }
+
     #[Route('/api-gateway', name: 'app_api_gateway')]
     public function startChatContact(Request $request, ChatRepositoryInterface $chatRepository): Response
     {
@@ -48,6 +58,7 @@ final class ApiGatewayController extends AbstractController
     {
         return new ConnectClient([
             'version' => 'latest',
+            'region' => 'us-east-1',
         ]);
     }
 
@@ -77,11 +88,11 @@ final class ApiGatewayController extends AbstractController
     {
         $client->startContactStreaming([
             'ChatStreamingConfiguration' => [
-                'StreamingEndpointArn' => $this->getParameter('streaming_endpoint_arn'),
+                'StreamingEndpointArn' => $this->streamingEndpointArn,
             ],
             'ClientToken' => RandomStringGenerator::generate(),
             'ContactId' => $contactId,
-            'InstanceId' => $this->getParameter('connect_instance_id'),
+            'InstanceId' => $this->connectInstanceId,
         ]);
     }
 

@@ -17,6 +17,7 @@ final class DownloadAttachmentAction extends AbstractController
     {
         $client = new ConnectParticipantClient([
             'version' => 'latest',
+            'region' => 'us-east-1',
         ]);
 
         $result = $client->getAttachment([

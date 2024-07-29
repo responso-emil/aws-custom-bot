@@ -16,6 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ChatController extends AbstractController
 {
+    private string $connectInstanceId;
+
+    public function __construct(string $connectInstanceId)
+    {
+        $this->connectInstanceId = $connectInstanceId;
+    }
+
     #[Route('/chat/{id}', name: 'app_chat')]
     public function __invoke(Request $request, Chat $chat, ChatRepositoryInterface $chatRepository): Response
     {
@@ -42,6 +49,7 @@ final class ChatController extends AbstractController
     {
         return new ConnectClient([
             'version' => 'latest',
+            'region' => 'us-east-1',
         ]);
     }
 
@@ -50,7 +58,7 @@ final class ChatController extends AbstractController
         $response = $client->createParticipant([
             'ClientToken' => RandomStringGenerator::generate(),
             'ContactId' => $chat->getContactId(),
-            'InstanceId' => $this->getParameter('connect_instance_id'),
+            'InstanceId' => $this->connectInstanceId,
             'ParticipantDetails' => [
                 'DisplayName' => 'TestUser',
                 'ParticipantRole' => 'CUSTOM_BOT',
@@ -64,6 +72,7 @@ final class ChatController extends AbstractController
     {
         $client = new ConnectParticipantClient([
             'version' => 'latest',
+            'region' => 'us-east-1',
         ]);
 
         $connection = $client->createParticipantConnection([
